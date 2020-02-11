@@ -1,0 +1,6 @@
+{
+  "name": "authentication",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./authentication.js"
+}
