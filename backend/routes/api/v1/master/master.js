@@ -24,6 +24,15 @@ const getKota = async (request, response, next) => {
   }
 }
 
+const getKotaAll = async (request, response, next) => {
+  const kota = await db.any('SELECT mst.kota_get_all()')
+  try {
+    response.send(kota[0].kota_get_all)
+  } catch (error) {
+    return response.status(400).send(error)
+  }
+}
+
 const getKecamatan = async (request, response, next) => {
   const kotaId = request.params.kotaId
   const kecamatan = await db.any(
@@ -349,6 +358,7 @@ const deletePictures = async (request, response, next) => {
 }
 
 router.get('/propinsi', getPropinsi)
+router.get('/kota/all', getKotaAll)
 router.get('/kota/:propinsiId', getKota)
 router.get('/kecamatan/:kotaId', getKecamatan)
 router.get('/kelurahan/:kecamatanId', getKelurahan)
