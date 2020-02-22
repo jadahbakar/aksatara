@@ -26,7 +26,9 @@ const getKota = async (request, response, next) => {
 
 const getKotaAll = async (request, response, next) => {
   const kota = await db.any('SELECT mst.kota_get_all()')
-  // console.log('TCL: getKotaAll -> kota', kota)
+
+  console.log('TCL: getKotaAll -> kota data ', kota)
+
 
   try {
     response.send(kota[0].kota_get_all)
