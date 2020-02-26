@@ -1,17 +1,21 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
+const https = require('https')
+const fs = require('fs')
+const path = require('path')
+var appRoot = require('app-root-path')
+// const serverCert = path.join(appRoot.path, '/key/server.cert')
+// const serverKey = path.join(appRoot.path, '/key/server.key')
+
+/* Module dependencies. */
 
 const app = require('../app')
 const debug = require('debug')('mampir-backend:server')
-const http = require('http')
+// const http = require('http')
+
 // config variables
 const config = require('../config/config.js')
 
-const appRoot = require('app-root-path')
-const fs = require('fs')
 fs.mkdir(appRoot.path + config.static_wisata, { recursive: true }, (err) => {
   if (err) throw err
 })
@@ -29,19 +33,35 @@ fs.mkdir(appRoot.path + config.static_kota, { recursive: true }, (err) => {
 const port = normalizePort(config.app_port || '7997')
 app.set('port', port)
 
+// console.log("TCL: path.join(appRoot.path, '/key/server.key')", path.join(appRoot.path, '/key/server.key'))
 /**
  * Create HTTP server.
  */
 
-const server = http.createServer(app)
+// const server = http.createServer(app)
+
+/**
+ * Create HTTPS server.
+ */
+
+var options = {
+  key: fs.readFileSync(path.join(appRoot.path, '/key/mockserver.key')),
+  cert: fs.readFileSync(path.join(appRoot.path, '/key/mockserver.crt'))
+}
+
+const server = https.createServer(options, app)
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port)
-server.on('error', onError)
-server.on('listening', onListening)
+// server.listen(port)
+// server.on('error', onError)
+// server.on('listening', onListening)
+
+app.listen(port, () => {
+  console.log(`run on port ${port}`)
+})
 
 /**
  * Normalize a port into a number, string, or false.

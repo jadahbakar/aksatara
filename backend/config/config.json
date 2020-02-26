@@ -7,7 +7,11 @@
         "app_desc": "Backend for aksatara",
         "app_port": 7997,
         "db_host": "192.168.100.12",
+<<<<<<< HEAD
         "db_port": "5117",
+=======
+        "db_port": "5111",
+>>>>>>> 86569f5b061cec52140ec22ee9b4c0b3c8a122c2
         "db_name": "aksatara",
         "db_user": "aksatara",
         "db_pass": "aksatara*117",
@@ -17,6 +21,8 @@
         "redis_port": 6379,
         "redis_host": "127.0.0.1",
         "static_wisata": "/static/images/wisata",
+        "static_wisata_background": "static/images/wisata/background",
+        "static_wisata_detail": "static/images/wisata/detail",
         "static_propinsi": "/static/images/propinsi",
         "static_kota": "/static/images/kota"    
     },
@@ -38,6 +44,8 @@
         "redis_port": 6379,
         "redis_host": "127.0.0.1",
         "static_wisata": "/static/images/wisata",
+        "static_wisata_background": "static/images/wisata/background",
+        "static_wisata_detail": "static/images/wisata/detail",
         "static_propinsi": "/static/images/propinsi",
         "static_kota": "/static/images/kota"
     }
