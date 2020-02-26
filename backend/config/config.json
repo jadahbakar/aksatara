@@ -17,6 +17,8 @@
         "redis_port": 6379,
         "redis_host": "127.0.0.1",
         "static_wisata": "/static/images/wisata",
+        "static_wisata_background": "static/images/wisata/background",
+        "static_wisata_detail": "static/images/wisata/detail",
         "static_propinsi": "/static/images/propinsi",
         "static_kota": "/static/images/kota"    
     },
@@ -38,6 +40,8 @@
         "redis_port": 6379,
         "redis_host": "127.0.0.1",
         "static_wisata": "/static/images/wisata",
+        "static_wisata_background": "static/images/wisata/background",
+        "static_wisata_detail": "static/images/wisata/detail",
         "static_propinsi": "/static/images/propinsi",
         "static_kota": "/static/images/kota"
     }
