@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+
+const http = require('http')
 const https = require('https')
 const fs = require('fs')
 const path = require('path')
@@ -38,18 +40,18 @@ app.set('port', port)
  * Create HTTP server.
  */
 
-// const server = http.createServer(app)
+const server = http.createServer(app)
 
 /**
  * Create HTTPS server.
  */
 
-var options = {
-  key: fs.readFileSync(path.join(appRoot.path, '/key/mockserver.key')),
-  cert: fs.readFileSync(path.join(appRoot.path, '/key/mockserver.crt'))
-}
+// var options = {
+//   key: fs.readFileSync(path.join(appRoot.path, '/key/mockserver.key')),
+//   cert: fs.readFileSync(path.join(appRoot.path, '/key/mockserver.crt'))
+// }
 
-const server = https.createServer(options, app)
+// const server = https.createServer(options, app)
 
 /**
  * Listen on provided port, on all network interfaces.

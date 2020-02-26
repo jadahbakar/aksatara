@@ -8,7 +8,6 @@
         "app_port": 7997,
         "db_host": "192.168.100.12",
         "db_port": "5117",
-        "db_port": "5111",
         "db_name": "aksatara",
         "db_user": "aksatara",
         "db_pass": "aksatara*117",
