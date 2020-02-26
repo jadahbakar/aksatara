@@ -112,7 +112,7 @@ const deleteWisata = async (request, response, next) => {
 }
 
 const postWisata = async (request, response, next) => {
-  let form = new formdiable.IncomingForm()
+  const form = new formdiable.IncomingForm()
   form.multiples = true
   form.keepExtensions = true
 
@@ -123,9 +123,9 @@ const postWisata = async (request, response, next) => {
     const { propinsi_id, kota_id, kategori_wisata_id, nama, deskripsi, latitude, longitude, waktukunjung, hargatiket, fasilitas_wisata_id } = fields
     const { background, datagambar } = files
 
-    const kutipanDeskripsi    = Trims(deskripsi, 160, ' ', ' ...')
-    const arrayFasilitas      = fasilitas_wisata_id && fasilitas_wisata_id.split(',')
-    const imageBackground     = background.name
+    const kutipanDeskripsi = Trims(deskripsi, 160, ' ', ' ...')
+    const arrayFasilitas = fasilitas_wisata_id && fasilitas_wisata_id.split(',')
+    const imageBackground = background.name
     var fileNamesDetailGambar = []
     datagambar.forEach(eachfile => {
       fileNamesDetailGambar.push(`http://localhost:7997/api/v1/master/gambardetail/wisata/${eachfile.name}`)
@@ -134,18 +134,18 @@ const postWisata = async (request, response, next) => {
     const data = db.one(`INSERT INTO mst.wisata 
           (propinsi_id, kota_id, kategori_wisata_id, wisata_nama, wisata_deskripsi, wisata_kutipan_deskripsi, wisata_longitude, wisata_latitude, wisata_jam, wisata_harga_ticket, fasilitas_wisata_id, wisata_images_utama, wisata_images_detail) VALUES  
           ($(propinsi_id), $(kota_id) , $(kategori_wisata_id), $(nama), $(deskripsi), $(kutipanDeskripsi), $(longitude), $(latitude), $(waktukunjung), $(hargatiket), $(arrayFasilitas), $(imageBackground), $(fileNamesDetailGambar) ) RETURNING wisata_id`,
-    { propinsi_id, kota_id, kategori_wisata_id, nama, deskripsi, kutipanDeskripsi, longitude, latitude, waktukunjung, hargatiket, arrayFasilitas, imageBackground, fileNamesDetailGambar})
+    { propinsi_id, kota_id, kategori_wisata_id, nama, deskripsi, kutipanDeskripsi, longitude, latitude, waktukunjung, hargatiket, arrayFasilitas, imageBackground, fileNamesDetailGambar })
     response.status(200).send(data)
   })
 
-  form.on('fileBegin', function (name, file){
-    if(name) {
-      if(name === 'background') {
-        file.path = path.resolve("./static/images/wisata/background", file.name)
+  form.on('fileBegin', function (name, file) {
+    if (name) {
+      if (name === 'background') {
+        file.path = path.resolve('./static/images/wisata/background', file.name)
       }
 
-      if(name === 'datagambar') {
-        file.path = path.resolve("./static/images/wisata/detail", file.name)
+      if (name === 'datagambar') {
+        file.path = path.resolve('./static/images/wisata/detail', file.name)
       }
     }
   })
@@ -155,7 +155,7 @@ const postWisata = async (request, response, next) => {
   })
 }
 
-const getAllWisata = async (request,response,next) => {
+const getAllWisata = async (request, response, next) => {
   const query = 'SELECT * FROM mst.wisata'
   const result = await db.any(query)
   try {
@@ -165,7 +165,7 @@ const getAllWisata = async (request,response,next) => {
   }
 }
 
-const getWisataById = async (request,response,next) => {
+const getWisataById = async (request, response, next) => {
   try {
     const idWisata = request.params.id
     const result = await db.any('SELECT * FROM mst.wisata WHERE wisata_id IN ($(idWisata));', { idWisata })
@@ -177,15 +177,15 @@ const getWisataById = async (request,response,next) => {
 
 const getGambarUtamaWisata = async (request, response, next) => {
   fs.readFile(`${config.static_wisata_background}/${request.params.nama}`, (err, data) => {
-    response.writeHead(200, {'Content-Type': 'image/jpeg'});
-    response.end(data);
+    response.writeHead(200, { 'Content-Type': 'image/jpeg' })
+    response.end(data)
   })
 }
 
-const getGambarDetailWisata = (request,response,next) => {
+const getGambarDetailWisata = (request, response, next) => {
   fs.readFile(`${config.static_wisata_detail}/${request.params.nama}`, (err, data) => {
-    response.writeHead(200, {'Content-Type': 'image/jpeg'});
-    response.end(data);
+    response.writeHead(200, { 'Content-Type': 'image/jpeg' })
+    response.end(data)
   })
 }
 
