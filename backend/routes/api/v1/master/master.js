@@ -126,7 +126,7 @@ const postWisata = async (request, response, next) => {
     const kutipanDeskripsi = Trims(deskripsi, 160, ' ', ' ...')
     const arrayFasilitas = fasilitas_wisata_id && fasilitas_wisata_id.split(',')
     const imageBackground = background.name
-    var fileNamesDetailGambar = []
+    let fileNamesDetailGambar = []
     datagambar.forEach(eachfile => {
       fileNamesDetailGambar.push(`http://localhost:7997/api/v1/master/gambardetail/wisata/${eachfile.name}`)
     })
@@ -156,7 +156,7 @@ const postWisata = async (request, response, next) => {
 }
 
 const getAllWisata = async (request, response, next) => {
-  const query = 'SELECT * FROM mst.wisata'
+  const query = 'SELECT * FROM mst.wisata a JOIN mst.propinsi b ON a.propinsi_id = b.propinsi_id::int4 JOIN mst.kota c ON a.kota_id = c.kota_id::int4 JOIN mst.kategori_wisata d ON a.kategori_wisata_id = d.kategori_wisata_id::int4'
   const result = await db.any(query)
   try {
     response.send(result)
@@ -168,7 +168,7 @@ const getAllWisata = async (request, response, next) => {
 const getWisataById = async (request, response, next) => {
   try {
     const idWisata = request.params.id
-    const result = await db.any('SELECT * FROM mst.wisata WHERE wisata_id IN ($(idWisata));', { idWisata })
+    const result = await db.any('SELECT * FROM mst.wisata a JOIN mst.propinsi b ON a.propinsi_id = b.propinsi_id::int4 JOIN mst.kota c ON a.kota_id = c.kota_id::int4 JOIN mst.kategori_wisata d ON a.kategori_wisata_id = d.kategori_wisata_id::int4 WHERE wisata_id IN ($(idWisata));', { idWisata })
     response.send(result[0])
   } catch (error) {
     return response.status(400).send(error)
